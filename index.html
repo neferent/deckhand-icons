@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Icon Library</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Icon Library</h1>
+    <div id="icon-gallery"></div>
+
+	<script>
+		fetch('icons.json')
+			.then(response => response.json())
+			.then(icons => {
+				const gallery = document.getElementById('icon-gallery');
+
+				icons.forEach(icon => {
+					const container = document.createElement('div');
+					container.className = 'icon-container';
+
+					const img = document.createElement('img');
+					img.src = `icons/${icon}`;
+					img.alt = icon;
+
+					const name = document.createElement('p');
+					name.textContent = icon;
+
+					const downloadLink = document.createElement('a');
+					downloadLink.href = img.src;
+					downloadLink.download = icon;
+					downloadLink.textContent = 'Download';
+
+					container.appendChild(img);
+					container.appendChild(name);
+					container.appendChild(downloadLink);
+
+					gallery.appendChild(container);
+				});
+			})
+			.catch(error => console.error('Error loading icons:', error));
+	</script>
+
+</body>
+</html>
